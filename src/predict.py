@@ -4,7 +4,7 @@ import os
 import sys
 import numpy as np
 
-sys.path.append('../tool')
+sys.path.append('VGG-Speaker-Recognition/src') #used to be '../tool'
 import toolkits
 import utils as ut
 
