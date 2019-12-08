@@ -83,13 +83,13 @@ def main():
         # load the model if the imag_model == real_model.
         print('args.resume, isfile: wgts, os.path, os.path.isfile(args.resume) below')
         print(args.resume)
-        print(os.path.isfile('VGG-Speaker-Recognition/src/weights.h5'))
+        print(os.path.isfile('weights.h5')) #if in contents dir, VGG-Speaker-Recognition/src/weights.h5
         print(os.path)
         print(os.path.isfile(args.resume))
         
         #'VGG-Speaker-Recognition/src/weights.h5' in below block used to be isfile(args.resume) etc
-        if os.path.isfile('VGG-Speaker-Recognition/src/weights.h5'):
-            network_eval.load_weights('VGG-Speaker-Recognition/src/weights.h5', by_name=True)
+        if os.path.isfile('weights.h5'):
+            network_eval.load_weights('weights.h5', by_name=True)
             print(set_result_path(args))
             result_path = set_result_path(args)  
             print('==> successfully loading model {}.'.format(args.resume))
