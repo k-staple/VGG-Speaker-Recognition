@@ -81,6 +81,10 @@ def main():
     if args.resume:
         # ==> get real_model from arguments input,
         # load the model if the imag_model == real_model.
+        print('args.resume, os.path, os.path.isfile(args.resume) below')
+        print(args.resume)
+        print(os.path)
+        print(os.path.isfile(args.resume))
         if os.path.isfile(args.resume):
             network_eval.load_weights(os.path.join(args.resume), by_name=True)
             result_path = set_result_path(args)
