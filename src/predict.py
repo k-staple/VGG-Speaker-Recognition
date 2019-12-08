@@ -44,11 +44,11 @@ def main():
     print('==> calculating test({}) data lists...'.format(args.test_type))
 
     if args.test_type == 'normal':
-        verify_list = np.loadtxt('../meta/voxceleb1_veri_test.txt', str)
+        verify_list = np.loadtxt('VGG-Speaker-Recognition/meta/voxceleb1_veri_test.txt', str) #edited path for google colab
     elif args.test_type == 'hard':
-        verify_list = np.loadtxt('../meta/voxceleb1_veri_test_hard.txt', str)
+        verify_list = np.loadtxt('VGG-Speaker-Recognition/meta/voxceleb1_veri_test_hard.txt', str) #edited path for google colab
     elif args.test_type == 'extend':
-        verify_list = np.loadtxt('../meta/voxceleb1_veri_test_extended.txt', str)
+        verify_list = np.loadtxt('VGG-Speaker-Recognition/meta/voxceleb1_veri_test_extended.txt', str) #edited path for google colab
     else:
         raise IOError('==> unknown test type.')
 
