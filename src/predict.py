@@ -87,9 +87,12 @@ def main():
         print(os.path)
         print(os.path.isfile(args.resume))
         
-        if os.path.isfile(args.resume):
-            network_eval.load_weights(os.path.join(args.resume), by_name=True)
-            result_path = set_result_path(args)
+        #'VGG-Speaker-Recognition/src/weights.h5' in below block used to be isfile(args.resume) etc
+        if os.path.isfile('VGG-Speaker-Recognition/src/weights.h5'):
+            network_eval.load_weights('VGG-Speaker-Recognition/src/weights.h5', by_name=True)
+            print(result_path)
+            print(set_result_path(args))
+            result_path = set_result_path(args)  
             print('==> successfully loading model {}.'.format(args.resume))
         else:
             raise IOError("==> no checkpoint found at '{}'".format(args.resume))
