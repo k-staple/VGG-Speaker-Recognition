@@ -90,8 +90,8 @@ def main():
         #'VGG-Speaker-Recognition/src/weights.h5' in below block used to be isfile(args.resume) etc
         if os.path.isfile('VGG-Speaker-Recognition/src/weights.h5'):
             network_eval.load_weights('VGG-Speaker-Recognition/src/weights.h5', by_name=True)
-            print(set_result_path(args))
-            result_path = set_result_path(args)  
+            #print(set_result_path(args))
+            #result_path = set_result_path(args)  
             print('==> successfully loading model {}.'.format(args.resume))
         else:
             raise IOError("==> no checkpoint found at '{}'".format(args.resume))
@@ -131,8 +131,13 @@ def main():
     scores = np.array(scores)
     labels = np.array(labels)
 
-    np.save(os.path.join(result_path, 'prediction_scores.npy'), scores)
-    np.save(os.path.join(result_path, 'groundtruth_labels.npy'), labels)
+    #change save file for colab; used to be what's below
+    #np.save(os.path.join(result_path, 'prediction_scores.npy'), scores)
+    #np.save(os.path.join(result_path, 'groundtruth_labels.npy'), labels)
+
+    #.npy is a numpy array file
+    np.save(os.path.join('VGG-Speaker-Recognition/src/', 'prediction_scores.npy'), scores)
+    np.save(os.path.join('VGG-Speaker-Recognition/src/', 'groundtruth_labels.npy'), labels)
 
     eer, thresh = toolkits.calculate_eer(labels, scores)
     print('==> model : {}, EER: {}'.format(args.resume, eer))
