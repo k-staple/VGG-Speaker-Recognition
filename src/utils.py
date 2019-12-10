@@ -25,11 +25,7 @@ def lin_spectogram_from_wav(wav, hop_length, win_length, n_fft=1024):
 
 
 def load_data(path, win_length=400, sr=16000, hop_length=160, n_fft=512, spec_len=250, mode='train'):
-    print('path in load_data about to be sent to load_wav')
-    print(path)
     path = os.path.join('..', path[1:])                   #to find ../ and then media/and_so_on
-    print('new path')
-    print(path)
     wav = load_wav(path, sr=sr, mode=mode)
     linear_spect = lin_spectogram_from_wav(wav, hop_length, win_length, n_fft)
     mag, _ = librosa.magphase(linear_spect)  # magnitude
