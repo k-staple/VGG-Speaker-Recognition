@@ -27,7 +27,7 @@ def lin_spectogram_from_wav(wav, hop_length, win_length, n_fft=1024):
 def load_data(path, win_length=400, sr=16000, hop_length=160, n_fft=512, spec_len=250, mode='train'):
     print('path in load_data about to be sent to load_wav')
     print(path)
-    path = os.join('..', path)                   #to find ../ and then media/and_so_on
+    path = os.path.join('..', path)                   #to find ../ and then media/and_so_on
     print('new path')
     print(path)
     wav = load_wav(path, sr=sr, mode=mode)
