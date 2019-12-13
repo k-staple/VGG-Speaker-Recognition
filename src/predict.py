@@ -27,7 +27,7 @@ parser.add_argument('--bottleneck_dim', default=512, type=int)
 parser.add_argument('--aggregation_mode', default='gvlad', choices=['avg', 'vlad', 'gvlad'], type=str)
 # set up learning rate, training loss and optimizer.
 parser.add_argument('--loss', default='softmax', choices=['softmax', 'amsoftmax'], type=str)
-parser.add_argument('--test_type', default='normal', choices=['normal', 'hard', 'extend'], type=str)
+parser.add_argument('--test_type', default='ai', choices=['ai', 'normal', 'hard', 'extend'], type=str)
 
 global args
 args = parser.parse_args()
@@ -42,6 +42,10 @@ def main():
     #       Get Train/Val.
     # ==================================
     print('==> calculating test({}) data lists...'.format(args.test_type))
+    
+    # AI project list file
+    if args.test_type == 'ai':
+        verify_list = np.loadtxt('../meta/sample.txt', str)  
 
     if args.test_type == 'normal':
         verify_list = np.loadtxt('../meta/voxceleb1_veri_test.txt', str) 
