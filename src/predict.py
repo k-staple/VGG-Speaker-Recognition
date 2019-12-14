@@ -4,7 +4,7 @@ import os
 import sys
 import numpy as np
 
-sys.path.append('VGG-Speaker-Recognition/src') #used to be '../tool'
+sys.path.append('../tool') #could be 'VGG-Speaker-Recognition/src' if didn't change dir
 import toolkits
 import utils as ut
 
@@ -27,7 +27,7 @@ parser.add_argument('--bottleneck_dim', default=512, type=int)
 parser.add_argument('--aggregation_mode', default='gvlad', choices=['avg', 'vlad', 'gvlad'], type=str)
 # set up learning rate, training loss and optimizer.
 parser.add_argument('--loss', default='softmax', choices=['softmax', 'amsoftmax'], type=str)
-parser.add_argument('--test_type', default='normal', choices=['normal', 'hard', 'extend'], type=str)
+parser.add_argument('--test_type', default='ai', choices=['ai', 'normal', 'hard', 'extend'], type=str)
 
 global args
 args = parser.parse_args()
@@ -42,13 +42,17 @@ def main():
     #       Get Train/Val.
     # ==================================
     print('==> calculating test({}) data lists...'.format(args.test_type))
+    
+    # AI project list file
+    if args.test_type == 'ai':
+        verify_list = np.loadtxt('../meta/sample.txt', str)  
 
     if args.test_type == 'normal':
-        verify_list = np.loadtxt('VGG-Speaker-Recognition/meta/voxceleb1_veri_test.txt', str) #edited path for google colab
+        verify_list = np.loadtxt('../meta/voxceleb1_veri_test.txt', str) 
     elif args.test_type == 'hard':
-        verify_list = np.loadtxt('VGG-Speaker-Recognition/meta/voxceleb1_veri_test_hard.txt', str) #edited path for google colab
+        verify_list = np.loadtxt('../meta/voxceleb1_veri_test_hard.txt', str) 
     elif args.test_type == 'extend':
-        verify_list = np.loadtxt('VGG-Speaker-Recognition/meta/voxceleb1_veri_test_extended.txt', str) #edited path for google colab
+        verify_list = np.loadtxt('../meta/voxceleb1_veri_test_extended.txt', str)
     else:
         raise IOError('==> unknown test type.')
 
@@ -83,13 +87,13 @@ def main():
         # load the model if the imag_model == real_model.
         print('args.resume, isfile: wgts, os.path, os.path.isfile(args.resume) below')
         print(args.resume)
-        print(os.path.isfile('VGG-Speaker-Recognition/src/weights.h5'))
+        print(os.path.isfile('weights.h5')) #if in contents dir, VGG-Speaker-Recognition/src/weights.h5
         print(os.path)
         print(os.path.isfile(args.resume))
         
         #'VGG-Speaker-Recognition/src/weights.h5' in below block used to be isfile(args.resume) etc
-        if os.path.isfile('VGG-Speaker-Recognition/src/weights.h5'):
-            network_eval.load_weights('VGG-Speaker-Recognition/src/weights.h5', by_name=True)
+        if os.path.isfile('weights.h5'):
+            network_eval.load_weights('weights.h5', by_name=True)
             #print(set_result_path(args))
             #result_path = set_result_path(args)  
             print('==> successfully loading model {}.'.format(args.resume))
@@ -136,8 +140,8 @@ def main():
     #np.save(os.path.join(result_path, 'groundtruth_labels.npy'), labels)
 
     #.npy is a numpy array file
-    np.save(os.path.join('VGG-Speaker-Recognition/src/', 'prediction_scores.npy'), scores)
-    np.save(os.path.join('VGG-Speaker-Recognition/src/', 'groundtruth_labels.npy'), labels)
+    np.save('prediction_scores.npy', scores)
+    np.save('groundtruth_labels.npy', labels)
 
     eer, thresh = toolkits.calculate_eer(labels, scores)
     print('==> model : {}, EER: {}'.format(args.resume, eer))
